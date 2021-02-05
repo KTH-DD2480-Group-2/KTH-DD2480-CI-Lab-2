@@ -15,9 +15,10 @@ There are multiples ways to add dependencies to a maven project.
   * IntelliJ might sometimes not find the package that we want to import. In these cases, the packages need to be manually added to the pom.xml file. You can either search only for the package and add the dependency in the pom.xml file. Or you can do the search in the pom.xml file itself: <br/> <img style="width: 50%" src="./assets/intelliJ-dependecies-add-manually-example.png">
 ### Naming Conventions
 #### Commit messages
-* `#<issue-num> fix|feat|docs|test|style: <description of commit>`
+* `#<issue-num> fix|feat|docs|test|style: <Description of commit>`
 * Make sure last commit in PR follows the style above
 * Local commits can be in any form descriptive to yourself/others, but should be explanatory
+* The `<Description of commit>` should start with a capitalized letter
 
 #### Branch name
 * `issue/x-<description-of-branch>`
