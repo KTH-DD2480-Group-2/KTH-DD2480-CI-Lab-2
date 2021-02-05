@@ -1,3 +1,8 @@
 language: java
-script: mvn clean install
-script: mvn test
+install: true
+script:
+- mvn install
+jobs:
+  include:
+    - stage: test
+      script: mvn test
