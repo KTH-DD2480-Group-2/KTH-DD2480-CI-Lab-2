@@ -1,5 +1,5 @@
 # KTH-DD2480-CI-Lab-2
-
+[![Build Status](https://travis-ci.com/AdamJonsson/KTH-DD2480-CI-Lab-2.svg?branch=main)](https://travis-ci.com/AdamJonsson/KTH-DD2480-CI-Lab-2)
 ## Developers
 ### Getting Started
 * To start developing, you first need to have Maven installed. (Not sure if it comes with IntelliJ). You can check that it is installed by running `mvn --version` in your terminal/powershell.
