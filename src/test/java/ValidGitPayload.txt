@@ -1,0 +1,199 @@
+{
+  "ref": "refs/heads/issue/7-Make-the-CI-server-fetch-data-from-the-repository",
+  "before": "e7ab65d6ee5cf44de56822ec14041ba1519036b9",
+  "after": "c80994e4c7ec32cd057886d40e59b23075429b82",
+  "repository": {
+    "id": 336016459,
+    "node_id": "MDEwOlJlcG9zaXRvcnkzMzYwMTY0NTk=",
+    "name": "KTH-DD2480-CI-Lab-2",
+    "full_name": "KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2",
+    "private": false,
+    "owner": {
+      "name": "KTH-DD2480-Group-2",
+      "email": null,
+      "login": "KTH-DD2480-Group-2",
+      "id": 78646399,
+      "node_id": "MDEyOk9yZ2FuaXphdGlvbjc4NjQ2Mzk5",
+      "avatar_url": "https://avatars.githubusercontent.com/u/78646399?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/KTH-DD2480-Group-2",
+      "html_url": "https://github.com/KTH-DD2480-Group-2",
+      "followers_url": "https://api.github.com/users/KTH-DD2480-Group-2/followers",
+      "following_url": "https://api.github.com/users/KTH-DD2480-Group-2/following{/other_user}",
+      "gists_url": "https://api.github.com/users/KTH-DD2480-Group-2/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/KTH-DD2480-Group-2/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/KTH-DD2480-Group-2/subscriptions",
+      "organizations_url": "https://api.github.com/users/KTH-DD2480-Group-2/orgs",
+      "repos_url": "https://api.github.com/users/KTH-DD2480-Group-2/repos",
+      "events_url": "https://api.github.com/users/KTH-DD2480-Group-2/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/KTH-DD2480-Group-2/received_events",
+      "type": "Organization",
+      "site_admin": false
+    },
+    "html_url": "https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2",
+    "description": null,
+    "fork": false,
+    "url": "https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2",
+    "forks_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/forks",
+    "keys_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/keys{/key_id}",
+    "collaborators_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/collaborators{/collaborator}",
+    "teams_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/teams",
+    "hooks_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/hooks",
+    "issue_events_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/issues/events{/number}",
+    "events_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/events",
+    "assignees_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/assignees{/user}",
+    "branches_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/branches{/branch}",
+    "tags_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/tags",
+    "blobs_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/git/blobs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/git/tags{/sha}",
+    "git_refs_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/git/refs{/sha}",
+    "trees_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/git/trees{/sha}",
+    "statuses_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/statuses/{sha}",
+    "languages_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/languages",
+    "stargazers_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/stargazers",
+    "contributors_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/contributors",
+    "subscribers_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/subscribers",
+    "subscription_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/subscription",
+    "commits_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/commits{/sha}",
+    "git_commits_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/git/commits{/sha}",
+    "comments_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/comments{/number}",
+    "issue_comment_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/issues/comments{/number}",
+    "contents_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/contents/{+path}",
+    "compare_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/compare/{base}...{head}",
+    "merges_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/merges",
+    "archive_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/{archive_format}{/ref}",
+    "downloads_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/downloads",
+    "issues_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/issues{/number}",
+    "pulls_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pulls{/number}",
+    "milestones_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/milestones{/number}",
+    "notifications_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/notifications{?since,all,participating}",
+    "labels_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/labels{/name}",
+    "releases_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/releases{/id}",
+    "deployments_url": "https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/deployments",
+    "created_at": 1612456611,
+    "updated_at": "2021-02-07T14:34:38Z",
+    "pushed_at": 1612780630,
+    "git_url": "git://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2.git",
+    "ssh_url": "git@github.com:KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2.git",
+    "clone_url": "https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2.git",
+    "svn_url": "https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2",
+    "homepage": null,
+    "size": 71,
+    "stargazers_count": 1,
+    "watchers_count": 1,
+    "language": "Java",
+    "has_issues": true,
+    "has_projects": true,
+    "has_downloads": true,
+    "has_wiki": true,
+    "has_pages": false,
+    "forks_count": 0,
+    "mirror_url": null,
+    "archived": false,
+    "disabled": false,
+    "open_issues_count": 3,
+    "license": null,
+    "forks": 0,
+    "open_issues": 3,
+    "watchers": 1,
+    "default_branch": "main",
+    "stargazers": 1,
+    "master_branch": "main",
+    "organization": "KTH-DD2480-Group-2"
+  },
+  "pusher": {
+    "name": "manjikian",
+    "email": "51725316+manjikian@users.noreply.github.com"
+  },
+  "organization": {
+    "login": "KTH-DD2480-Group-2",
+    "id": 78646399,
+    "node_id": "MDEyOk9yZ2FuaXphdGlvbjc4NjQ2Mzk5",
+    "url": "https://api.github.com/orgs/KTH-DD2480-Group-2",
+    "repos_url": "https://api.github.com/orgs/KTH-DD2480-Group-2/repos",
+    "events_url": "https://api.github.com/orgs/KTH-DD2480-Group-2/events",
+    "hooks_url": "https://api.github.com/orgs/KTH-DD2480-Group-2/hooks",
+    "issues_url": "https://api.github.com/orgs/KTH-DD2480-Group-2/issues",
+    "members_url": "https://api.github.com/orgs/KTH-DD2480-Group-2/members{/member}",
+    "public_members_url": "https://api.github.com/orgs/KTH-DD2480-Group-2/public_members{/member}",
+    "avatar_url": "https://avatars.githubusercontent.com/u/78646399?v=4",
+    "description": null
+  },
+  "sender": {
+    "login": "manjikian",
+    "id": 51725316,
+    "node_id": "MDQ6VXNlcjUxNzI1MzE2",
+    "avatar_url": "https://avatars.githubusercontent.com/u/51725316?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/manjikian",
+    "html_url": "https://github.com/manjikian",
+    "followers_url": "https://api.github.com/users/manjikian/followers",
+    "following_url": "https://api.github.com/users/manjikian/following{/other_user}",
+    "gists_url": "https://api.github.com/users/manjikian/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/manjikian/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/manjikian/subscriptions",
+    "organizations_url": "https://api.github.com/users/manjikian/orgs",
+    "repos_url": "https://api.github.com/users/manjikian/repos",
+    "events_url": "https://api.github.com/users/manjikian/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/manjikian/received_events",
+    "type": "User",
+    "site_admin": false
+  },
+  "created": false,
+  "deleted": false,
+  "forced": false,
+  "base_ref": null,
+  "compare": "https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/compare/e7ab65d6ee5c...c80994e4c7ec",
+  "commits": [
+    {
+      "id": "c80994e4c7ec32cd057886d40e59b23075429b82",
+      "tree_id": "30846be72133d41c300b115c135867ff39e96f64",
+      "distinct": true,
+      "message": "Update tests for ContinuousIntegrationServer",
+      "timestamp": "2021-02-08T11:36:06+01:00",
+      "url": "https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/commit/c80994e4c7ec32cd057886d40e59b23075429b82",
+      "author": {
+        "name": "Hovig",
+        "email": "hovig@mail.com"
+      },
+      "committer": {
+        "name": "Hovig",
+        "email": "hovig@mail.com"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "src/test/java/ContinuousIntegrationServerTest.java"
+      ]
+    }
+  ],
+  "head_commit": {
+    "id": "c80994e4c7ec32cd057886d40e59b23075429b82",
+    "tree_id": "30846be72133d41c300b115c135867ff39e96f64",
+    "distinct": true,
+    "message": "Update tests for ContinuousIntegrationServer",
+    "timestamp": "2021-02-08T11:36:06+01:00",
+    "url": "https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/commit/c80994e4c7ec32cd057886d40e59b23075429b82",
+    "author": {
+      "name": "Hovig",
+      "email": "hovig@mail.com"
+    },
+    "committer": {
+      "name": "Hovig",
+      "email": "hovig@mail.com"
+    },
+    "added": [
+
+    ],
+    "removed": [
+
+    ],
+    "modified": [
+      "src/test/java/ContinuousIntegrationServerTest.java"
+    ]
+  }
+}
