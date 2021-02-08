@@ -14,3 +14,5 @@ buildNumber.properties
 org.eclipse.*
 .idea
 .vscode
+KTH-DD2480-CI-Lab-2.iml
+revision.zip
