@@ -13,3 +13,4 @@ buildNumber.properties
 .classpath
 org.eclipse.*
 .idea
+.vscode
