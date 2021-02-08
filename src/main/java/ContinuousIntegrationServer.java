@@ -35,16 +35,12 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         baseRequest.setHandled(true);
 
         switch (target) {
-            case "/":
-                response.getWriter().println("CI server working!");
-                break;
-            case "/api/webhook-processer":
+            case "/" -> response.getWriter().println("CI server working!");
+            case "/api/webhook-processer" -> {
                 response.getWriter().println("Handling webhook event");
                 WebhookProcesser.handleWebhookEvent(request);
-                break;
-            default:
-                response.getWriter().println("404. Page not found");
-                break;
+            }
+            default -> response.getWriter().println("404. Page not found");
         }
     }
 
