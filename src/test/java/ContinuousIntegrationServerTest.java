@@ -16,7 +16,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.file.Files;
 
 public class ContinuousIntegrationServerTest {
 
@@ -185,9 +184,12 @@ public class ContinuousIntegrationServerTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        File file = new File("buildlogs/44ccb7345a39b21e67effa10101e9e61157b6526.txt");
+        File file = new File("buildlogs/sha=44ccb7345a39b21e67effa10101e9e61157b6526.txt");
         assertTrue(file.exists());
     }
+
+
+
 
 
 

@@ -98,6 +98,7 @@ public class WebhookProcesser {
         try {
             Process process = processBuilder.start();
 
+            //collect test data for JSON log
             BufferedReader reader =
                     new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
@@ -116,7 +117,7 @@ public class WebhookProcesser {
 
             //save the JSON to file
             String jsonString = json.build().toString();
-            try (PrintStream out = new PrintStream(new FileOutputStream("buildlogs/" + commitSHA + ".txt"))) {
+            try (PrintStream out = new PrintStream(new FileOutputStream("buildlogs/sha=" + commitSHA + ".txt"))) {
                 out.print(jsonString);
             }
 
