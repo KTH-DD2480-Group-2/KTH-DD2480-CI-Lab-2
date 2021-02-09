@@ -1,3 +1,5 @@
+import javax.json.Json;
+import javax.json.JsonObjectBuilder;
 import javax.servlet.http.HttpServletRequest;
 
 import java.io.*;
@@ -82,13 +84,15 @@ public class WebhookProcesser {
     }
 
     /**
-     * Runs the tests. Used after the contents of the zip has been extracted.
+     * Runs the tests and save the results in JSON format. Used after the contents of the zip has been extracted.
      */
     public static void runTests() throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder();
 
         processBuilder.command("cmd.exe", "/c", "mvn test");
         processBuilder.directory(new File("extracted\\KTH-DD2480-CI-Lab-2-44ccb7345a39b21e67effa10101e9e61157b6526"));
+
+        JsonObjectBuilder json = Json.createObjectBuilder();
 
         try {
 
@@ -99,11 +103,24 @@ public class WebhookProcesser {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+                if (line.contains("Tests run"))
+                    json.add("statistics", line.substring(7,line.length()));
+                else if (line.contains("BUILD"))
+                    json.add("result", line.substring(7,line.length()));
+                else if (line.contains("Total time"))
+                    json.add("time", line.substring(7,line.length()));
+                else if(line.contains("Finished at"))
+                    json.add("endTime", line.substring(7,line.length()));
             }
 
             int exitCode = process.waitFor();
             System.out.println("\nExited with error code : " + exitCode);
+
+            //save the JSON to file
+            String jsonString = json.build().toString();
+            try (PrintStream out = new PrintStream(new FileOutputStream("buildlogs/" + "44ccb7345a39b21e67effa10101e9e61157b6526" + ".txt"))) {
+                out.print(jsonString);
+            }
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
