@@ -78,8 +78,8 @@ public class ContinuousIntegrationServerTest {
     /**
      * Starts the server in a separate thread.
      */
-    @BeforeEach
-    public void init() {
+    @BeforeAll
+    public static void init() {
         RunnableServer server = new RunnableServer();
         Thread t = new Thread(server);
         t.start();
@@ -108,8 +108,7 @@ public class ContinuousIntegrationServerTest {
      */
     @Test
     void main_ValidInput_CheckServerStatus() throws IOException, InterruptedException {
-        assertEquals("CI server working!\n", post("http://127.0.0.1:8080"));
-        assertNotEquals("CI server working!", post("http://127.0.0.1:8080"));
+        assertEquals("CI server working!", post("http://127.0.0.1:8080"));
     }
 
     /**
@@ -120,7 +119,7 @@ public class ContinuousIntegrationServerTest {
      */
     @Test
     void main_InvalidInput_HandlingInvalidRequests() throws IOException, InterruptedException {
-        assertEquals("404. Page not found\n", post("http://127.0.0.1:8080/xyz"));
+        assertEquals("404. Page not found", post("http://127.0.0.1:8080/xyz"));
     }
 
     /**

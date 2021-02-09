@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -8,6 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.eclipse.jetty.server.handler.ContextHandler;
+import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.server.handler.ResourceHandler;
+
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
 
 /**
@@ -23,8 +27,25 @@ public class ContinuousIntegrationServer extends AbstractHandler {
     public static void StartServer() throws Exception {
         Server server = new Server(8080); // Starts the server on port 8080
         server.setHandler(new ContinuousIntegrationServer());
+
+        ContextHandler frontendHandler = createFrontendHandler(server);
+        ContinuousIntegrationServer backendHandler = new ContinuousIntegrationServer();
+        HandlerList handlers = new HandlerList();
+	    handlers.setHandlers(new Handler[] { frontendHandler, backendHandler});
+
+	    server.setHandler(handlers);
         server.start();
         server.join();
+    }
+
+    private static ContextHandler createFrontendHandler(Server server) {
+        ContextHandler ctx = new ContextHandler("/dashboard");
+        ResourceHandler resourceHandler = new ResourceHandler();
+	    
+	    resourceHandler.setWelcomeFiles(new String[]{ "index.html" });
+	    resourceHandler.setResourceBase("src/main/webapp/ci-frontend/build");
+        ctx.setHandler(resourceHandler);
+        return ctx;
     }
 
     @Override
@@ -35,12 +56,12 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         baseRequest.setHandled(true);
 
         switch (target) {
-            case "/" -> response.getWriter().println("CI server working!");
+            case "/" -> response.getWriter().print("CI server working!");
             case "/api/webhook-processer" -> {
-                response.getWriter().println("Handling webhook event");
+                response.getWriter().print("Handling webhook event");
                 WebhookProcesser.handleWebhookEvent(request);
             }
-            default -> response.getWriter().println("404. Page not found");
+            default -> response.getWriter().print("404. Page not found");
         }
     }
 
