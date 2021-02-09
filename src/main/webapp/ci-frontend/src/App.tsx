@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import { BuildStatus } from './model/build-status-item';
+import { BuildStatusProvider } from './model/build-status-provider';
+import { BuildStatusTimeline } from './components/build-status-timeline';
+import { AppBar, IconButton, Toolbar } from '@material-ui/core';
+import MainPageAppBar from './components/app-bar';
 
-function App() {
+export default function App() {
+  const [buildsLoading, setBuildsLoading] = useState(true);
+  const [builds, setBuilds] = useState<BuildStatus[]>([]);
+
+  useEffect(() => {
+    BuildStatusProvider.getAllBuildsFromCIServer().then((fetchedBuilds) => {
+      setBuilds(fetchedBuilds);
+      console.log(fetchedBuilds);
+      setBuildsLoading(false);
+    });
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Hello World
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <CssBaseline />
+      <MainPageAppBar/>
+      <Container maxWidth="md">
+        {
+          buildsLoading ? <h3>Loading</h3> : <BuildStatusTimeline builds={builds}/>
+        }
+      </Container>
+    </React.Fragment>
   );
 }
-
-export default App;

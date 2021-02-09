@@ -5,7 +5,7 @@
 * To start developing, you first need to have Maven installed. (Not sure if it comes with IntelliJ). You can check that it is installed by running `mvn --version` in your terminal/powershell.
 * Clone this project to a location of choice, e.g `git clone ...`.
 * Run `mvn clean install` in the root of the project folder, that is, same level were this README.md is located. This will download all the dependencies needed to run the project.
-* To start the project, run `mvn exec:java "-Dexec.mainClass=ContinuousIntegrationServer"`. You can also run the project by running or debugging the main function in the ContinuousIntegrationServer class using an IDE. This would start a server on port 8080 that you can access in `http://localhost:8080/`
+* To start the project, run `mvn exec:java "-Dexec.mainClass=ContinuousIntegrationServer"`. You can also run the project by running or debugging the main function in the ContinuousIntegrationServer class using an IDE. This would start a server on port 8080 that you can access in `http://localhost:8080/`. You can also access the frontend dashboard in `http://localhost:8080/dashboard`.
 * To start the tests, run `mvn test`.
 
 #### Frontend
