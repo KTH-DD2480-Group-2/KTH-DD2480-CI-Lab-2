@@ -16,6 +16,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.file.Files;
 
 public class ContinuousIntegrationServerTest {
 
@@ -150,4 +151,42 @@ public class ContinuousIntegrationServerTest {
         assertFalse(file.exists());
         assertFalse(file.delete());
     }
+
+    /**
+     * Test the ability of the server to download a specific copy of the repo.
+     */
+    @Test
+    void main_ValidInput_DownloadZip(){
+        WebhookProcesser.downloadRevision("44ccb7345a39b21e67effa10101e9e61157b6526");
+        File file = new File("revision.zip");
+        assertTrue(file.exists());
+    }
+
+    /**
+     * Test the ability of the server to download and extract a specific copy of the repo.
+     */
+    @Test
+    void main_ValidInput_ExtractZip(){
+        WebhookProcesser.downloadRevision("44ccb7345a39b21e67effa10101e9e61157b6526");
+        WebhookProcesser.extractZip();
+        File file = new File("extracted/KTH-DD2480-CI-Lab-2-44ccb7345a39b21e67effa10101e9e61157b6526");
+        assertTrue(file.exists());
+    }
+
+    /**
+     * Test the ability of the server to download, extract and run tests on a specific copy of the repo.
+     */
+    @Test
+    void main_ValidInput_RunTests(){
+        WebhookProcesser.downloadRevision("44ccb7345a39b21e67effa10101e9e61157b6526");
+        WebhookProcesser.extractZip();
+        try {
+            WebhookProcesser.runTests();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }

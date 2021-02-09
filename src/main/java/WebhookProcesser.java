@@ -2,8 +2,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.io.*;
 import java.net.URL;
+import java.util.Map;
+import java.util.zip.ZipException;
 
 import org.json.JSONObject;
+
+import net.lingala.zip4j.core.ZipFile;
 
 public class WebhookProcesser {
 
@@ -49,7 +53,7 @@ public class WebhookProcesser {
      *
      * @param commitSHA the SHA-code of the revision.
      */
-    private static void downloadRevision(String commitSHA) {
+    public static void downloadRevision(String commitSHA) {
         String revisionLink = "https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/archive/" + commitSHA + ".zip";
         try (
                 BufferedInputStream inputStream = new BufferedInputStream(new URL(revisionLink).openStream());
@@ -61,6 +65,47 @@ public class WebhookProcesser {
                 fileOS.write(data, 0, byteContent);
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Extracts the zip produced by downloadRevision(String commitSHA).
+     */
+    public static void extractZip(){
+        try {
+            ZipFile zipFile = new ZipFile("revision.zip");
+            zipFile.extractAll("extracted");
+        } catch (net.lingala.zip4j.exception.ZipException e){
+            System.out.println(e.toString());
+        }
+    }
+
+    /**
+     * Runs the tests. Used after the contents of the zip has been extracted.
+     */
+    public static void runTests() throws IOException {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+
+        processBuilder.command("cmd.exe", "/c", "mvn test");
+        processBuilder.directory(new File("extracted\\KTH-DD2480-CI-Lab-2-44ccb7345a39b21e67effa10101e9e61157b6526"));
+
+        try {
+
+            Process process = processBuilder.start();
+
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            int exitCode = process.waitFor();
+            System.out.println("\nExited with error code : " + exitCode);
+
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
