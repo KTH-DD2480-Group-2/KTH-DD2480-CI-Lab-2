@@ -4,8 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.io.*;
 import java.net.URL;
-import java.util.Map;
-import java.util.zip.ZipException;
 
 import org.json.JSONObject;
 
@@ -29,6 +27,10 @@ public class WebhookProcesser {
         String commitSHA = json.get("after").toString();
 
         downloadRevision(commitSHA);
+
+        extractZip();
+
+        runTests(commitSHA);
     }
 
     /**
@@ -86,21 +88,18 @@ public class WebhookProcesser {
     /**
      * Runs the tests and save the results in JSON format. Used after the contents of the zip has been extracted.
      */
-    public static void runTests() throws IOException {
+    public static void runTests(String commitSHA) throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder();
-
         processBuilder.command("cmd.exe", "/c", "mvn test");
-        processBuilder.directory(new File("extracted\\KTH-DD2480-CI-Lab-2-44ccb7345a39b21e67effa10101e9e61157b6526"));
+        processBuilder.directory(new File("extracted\\KTH-DD2480-CI-Lab-2-" + commitSHA));
 
         JsonObjectBuilder json = Json.createObjectBuilder();
 
         try {
-
             Process process = processBuilder.start();
 
             BufferedReader reader =
                     new BufferedReader(new InputStreamReader(process.getInputStream()));
-
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.contains("Tests run"))
@@ -112,13 +111,12 @@ public class WebhookProcesser {
                 else if(line.contains("Finished at"))
                     json.add("endTime", line.substring(7,line.length()));
             }
-
             int exitCode = process.waitFor();
             System.out.println("\nExited with error code : " + exitCode);
 
             //save the JSON to file
             String jsonString = json.build().toString();
-            try (PrintStream out = new PrintStream(new FileOutputStream("buildlogs/" + "44ccb7345a39b21e67effa10101e9e61157b6526" + ".txt"))) {
+            try (PrintStream out = new PrintStream(new FileOutputStream("buildlogs/" + commitSHA + ".txt"))) {
                 out.print(jsonString);
             }
 
