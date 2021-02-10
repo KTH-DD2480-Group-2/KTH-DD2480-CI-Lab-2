@@ -98,7 +98,7 @@ public class WebhookProcesser {
      */
     public static JsonObject runBuild(String commitSHA) throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command("cmd.exe", "/c", "mvn test");
+        processBuilder.command("cmd.exe", "/c", "mvn clean install");
         processBuilder.directory(new File("extracted\\KTH-DD2480-CI-Lab-2-" + commitSHA));
 
         JsonObjectBuilder json = Json.createObjectBuilder();
