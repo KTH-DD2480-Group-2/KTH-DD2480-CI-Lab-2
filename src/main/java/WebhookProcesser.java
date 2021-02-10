@@ -162,7 +162,8 @@ public class WebhookProcesser {
 
         // Set up HTTP Post Request
         try {
-            URL url = new URL("https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/statuses/" + commitSHA);
+            URL url = new URL("https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/statuses/"
+                    + commitSHA + "?access_token=a2c3806b17791138e62804b3d71c949912abd19e");
             URLConnection con = url.openConnection();
             HttpURLConnection http = (HttpURLConnection) con;
             http.setRequestMethod("POST");
@@ -186,7 +187,7 @@ public class WebhookProcesser {
             int length = out.length;
 
             http.setFixedLengthStreamingMode(length);
-            http.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+            http.setRequestProperty("Content-Type", "application/vnd.github.v3+json");
             http.connect();
             try(OutputStream os = http.getOutputStream()) {
                 os.write(out);
