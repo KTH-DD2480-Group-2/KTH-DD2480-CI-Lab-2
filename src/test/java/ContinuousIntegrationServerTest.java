@@ -68,7 +68,7 @@ public class ContinuousIntegrationServerTest {
         @Override
         public void run() {
             try {
-                ContinuousIntegrationServer.StartServer();
+                ContinuousIntegrationServer.StartServer(8081);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -108,7 +108,7 @@ public class ContinuousIntegrationServerTest {
      */
     @Test
     void main_ValidInput_CheckServerStatus() throws IOException, InterruptedException {
-        assertEquals("CI server working!", post("http://127.0.0.1:8080"));
+        assertEquals("CI server working!", post("http://127.0.0.1:8081"));
     }
 
     /**
@@ -119,7 +119,7 @@ public class ContinuousIntegrationServerTest {
      */
     @Test
     void main_InvalidInput_HandlingInvalidRequests() throws IOException, InterruptedException {
-        assertEquals("404. Page not found", post("http://127.0.0.1:8080/xyz"));
+        assertEquals("404. Page not found", post("http://127.0.0.1:8081/xyz"));
     }
 
     /**
@@ -130,8 +130,8 @@ public class ContinuousIntegrationServerTest {
      */
     @Test
     void main_ValidInput_HandlingValidWebhook() throws IOException, InterruptedException {
-        postWithPayload("http://127.0.0.1:8080/api/webhook-processer","src/test/java/ValidGitPayload.txt");
-        File file = new File("revision.zip");
+        postWithPayload("http://127.0.0.1:8081/api/webhook-processer","src/test/java/ValidGitPayload.txt");
+        File file = new File(System.getProperty("user.dir") + "/revision.zip");
         assertTrue(file.exists());
         assertTrue(file.delete());
     }
@@ -144,9 +144,30 @@ public class ContinuousIntegrationServerTest {
      */
     @Test
     void main_InvalidInput_HandlingValidWebhook() throws IOException, InterruptedException {
-        postWithPayload("http://127.0.0.1:8080/api/webhook-processer","src/test/java/InvalidGitPayload.txt");
+        postWithPayload("http://127.0.0.1:8081/api/webhook-processer","src/test/java/InvalidGitPayload.txt");
         File file = new File("revision.zip");
         assertFalse(file.exists());
         assertFalse(file.delete());
+    }
+
+    /**
+     * Test the ability of the server to download a specific copy of the repo.
+     */
+    @Test
+    void main_ValidInput_DownloadZip(){
+        WebhookProcesser.downloadRevision("44ccb7345a39b21e67effa10101e9e61157b6526");
+        File file = new File("revision.zip");
+        assertTrue(file.exists());
+    }
+
+    /**
+     * Test the ability of the server to download and extract a specific copy of the repo.
+     */
+    @Test
+    void main_ValidInput_ExtractZip(){
+        WebhookProcesser.downloadRevision("44ccb7345a39b21e67effa10101e9e61157b6526");
+        WebhookProcesser.extractZip();
+        File file = new File("extracted/KTH-DD2480-CI-Lab-2-44ccb7345a39b21e67effa10101e9e61157b6526");
+        assertTrue(file.exists());
     }
 }

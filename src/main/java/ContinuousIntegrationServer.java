@@ -21,11 +21,11 @@ import org.eclipse.jetty.server.Request;
 public class ContinuousIntegrationServer extends AbstractHandler {
     // used to start the CI server in command line
     public static void main(String[] args) throws Exception {
-        StartServer();
+        StartServer(8080);
     }
 
-    public static void StartServer() throws Exception {
-        Server server = new Server(8080); // Starts the server on port 8080
+    public static void StartServer(int portNumber) throws Exception {
+        Server server = new Server(portNumber); // Starts the server on port 8080
         server.setHandler(new ContinuousIntegrationServer());
 
         ContextHandler frontendHandler = createFrontendHandler(server);

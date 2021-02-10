@@ -1,0 +1,2 @@
+This is a dummy file.
+Without this file and the buildlogs folder the server will have trouble storing new files.
