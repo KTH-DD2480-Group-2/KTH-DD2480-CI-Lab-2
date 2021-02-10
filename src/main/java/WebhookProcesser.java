@@ -1,14 +1,21 @@
 import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.servlet.http.HttpServletRequest;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 import org.json.JSONObject;
 
 import net.lingala.zip4j.core.ZipFile;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class WebhookProcesser {
 
@@ -104,21 +111,36 @@ public class WebhookProcesser {
                     new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.contains("Tests run"))
-                    json.add("statistics", line.substring(7,line.length()));
+                System.out.println(line);
+                if (line.contains("Tests run")){
+                    JsonObjectBuilder array = Json.createObjectBuilder();
+                    List<String> ints = new ArrayList<String>();
+                    Matcher matcher = Pattern.compile("[0-9]")
+                            .matcher(line);
+                    while (matcher.find()) {
+                        ints.add(matcher.group());
+                    }
+                    array.add("Tests run", ints.get(0));
+                    array.add("Failures", ints.get(1));
+                    array.add("Errors", ints.get(2));
+                    array.add("Skipped", ints.get(3));
+                    json.add("statistics", array);
+                }
                 else if (line.contains("BUILD"))
                     json.add("result", line.substring(7,line.length()));
-                else if (line.contains("Total time"))
-                    json.add("time", line.substring(7,line.length()));
+                else if (line.contains("Total time")){
+                    json.add("time", line.substring(20,line.length()));
+                    System.out.println(line);
+                }
                 else if(line.contains("Finished at"))
-                    json.add("endTime", line.substring(7,line.length()));
+                    json.add("endTime", line.substring(20,line.length()));
             }
             int exitCode = process.waitFor();
             System.out.println("\nExited with error code : " + exitCode);
 
             //save the JSON to file
             String jsonString = json.build().toString();
-            try (PrintStream out = new PrintStream(new FileOutputStream("buildlogs/sha=" + commitSHA + ".txt"))) {
+            try (PrintStream out = new PrintStream(new FileOutputStream("buildlogs/sha=" + commitSHA + ".json"))) {
                 out.print(jsonString);
             }
         } catch (IOException | InterruptedException e) {
