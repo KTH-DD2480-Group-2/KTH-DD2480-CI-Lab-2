@@ -180,7 +180,7 @@ public class ContinuousIntegrationServerTest {
         WebhookProcesser.downloadRevision("44ccb7345a39b21e67effa10101e9e61157b6526");
         WebhookProcesser.extractZip();
         try {
-            WebhookProcesser.runTests("44ccb7345a39b21e67effa10101e9e61157b6526");
+            WebhookProcesser.runBuild("44ccb7345a39b21e67effa10101e9e61157b6526");
         } catch (IOException e) {
             e.printStackTrace();
         }

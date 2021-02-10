@@ -1,4 +1,5 @@
 import javax.json.Json;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,7 +31,7 @@ public class WebhookProcesser {
 
         extractZip();
 
-        runTests(commitSHA);
+        runBuild(commitSHA);
     }
 
     /**
@@ -88,7 +89,7 @@ public class WebhookProcesser {
     /**
      * Runs the tests and save the results in JSON format. Used after the contents of the zip has been extracted.
      */
-    public static void runTests(String commitSHA) throws IOException {
+    public static JsonObject runBuild(String commitSHA) throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder();
         processBuilder.command("cmd.exe", "/c", "mvn test");
         processBuilder.directory(new File("extracted\\KTH-DD2480-CI-Lab-2-" + commitSHA));
@@ -120,9 +121,10 @@ public class WebhookProcesser {
             try (PrintStream out = new PrintStream(new FileOutputStream("buildlogs/sha=" + commitSHA + ".txt"))) {
                 out.print(jsonString);
             }
-
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+
+        return json.build();
     }
 }
