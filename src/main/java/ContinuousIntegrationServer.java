@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -43,5 +41,4 @@ public class ContinuousIntegrationServer extends AbstractHandler {
             default -> response.getWriter().print("404. Page not found");
         }
     }
-
 }

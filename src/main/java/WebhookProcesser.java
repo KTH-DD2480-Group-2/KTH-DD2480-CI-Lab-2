@@ -5,10 +5,9 @@ import javax.json.JsonObjectBuilder;
 import javax.servlet.http.HttpServletRequest;
 
 import java.io.*;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 import org.json.JSONObject;
 
@@ -16,6 +15,8 @@ import net.lingala.zip4j.core.ZipFile;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+
 
 public class WebhookProcesser {
 
@@ -38,7 +39,9 @@ public class WebhookProcesser {
 
         extractZip();
 
-        runBuild(commitSHA);
+        JsonObject jsonObj = runBuild(commitSHA);
+
+        set_build_result(commitSHA, jsonObj);
     }
 
     /**
@@ -148,5 +151,49 @@ public class WebhookProcesser {
         }
 
         return json.build();
+    }
+
+    /**
+     * Processes info from commit and sets CI build result status
+     */
+    public static void set_build_result(String commitSHA, JsonObject json) {
+        // Fetch info about failures
+        int fails = json.getInt("Failures");
+
+        // Set up HTTP Post Request
+        try {
+            URL url = new URL("https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/statuses/" + commitSHA);
+            URLConnection con = url.openConnection();
+            HttpURLConnection http = (HttpURLConnection) con;
+            http.setRequestMethod("POST");
+            http.setDoOutput(true);
+
+            Map<String,String> arguments = new HashMap<>();
+
+            // If there are failures, set status to failure, else set to success
+            if (fails > 0) {
+                arguments.put("state", "success");
+            } else {
+                arguments.put("state", "failure");
+            }
+
+            // Convert input to proper format for POST from HTTP form
+            StringJoiner sj = new StringJoiner("&");
+            for(Map.Entry<String,String> entry : arguments.entrySet())
+                sj.add(URLEncoder.encode(entry.getKey(), "UTF-8") + "="
+                        + URLEncoder.encode(entry.getValue(), "UTF-8"));
+            byte[] out = sj.toString().getBytes(StandardCharsets.UTF_8);
+            int length = out.length;
+
+            http.setFixedLengthStreamingMode(length);
+            http.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+            http.connect();
+            try(OutputStream os = http.getOutputStream()) {
+                os.write(out);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
