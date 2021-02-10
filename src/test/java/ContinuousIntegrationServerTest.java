@@ -170,4 +170,13 @@ public class ContinuousIntegrationServerTest {
         File file = new File("extracted/KTH-DD2480-CI-Lab-2-44ccb7345a39b21e67effa10101e9e61157b6526");
         assertTrue(file.exists());
     }
+
+    /**
+     * Dummy test to see if CI server will fail
+     */
+    @Test
+    void main_DummyTest() {
+        boolean dog = true;
+        assertFalse(dog);
+    }
 }
