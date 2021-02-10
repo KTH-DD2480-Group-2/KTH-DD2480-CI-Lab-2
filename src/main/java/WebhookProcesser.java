@@ -41,7 +41,7 @@ public class WebhookProcesser {
 
         JsonObject jsonObj = runBuild(commitSHA);
 
-        set_build_result(commitSHA, jsonObj);
+        set_build_result(commitSHA, check_build_succeeded(jsonObj));
     }
 
     /**
@@ -154,25 +154,39 @@ public class WebhookProcesser {
     }
 
     /**
-     * Processes info from commit and sets CI build result status
+     * Checks if build succeeded or not
      */
-    public static void set_build_result(String commitSHA, JsonObject json) {
-        // Fetch info about failures from JSON
+    public static boolean check_build_succeeded(JsonObject json) {
+        // Fetch info about errors and failures from JSON
         int fails = json.getInt("Failures");
+        int errors = json.getInt("Errors");
+
+        if (fails > 0 || errors > 0) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Processes info from commit and sets CI build result status, returns response as a String
+     */
+    public static String set_build_result(String commitSHA, boolean buildSuccess) {
+        String str = "";
 
         // Set up HTTP Post Request for sending JSON
         try {
             URL url = new URL("https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/statuses/"
-                    + commitSHA + "?access_token=bf12122b5319587856fda78924afd3769887ba42");
-            URLConnection con = url.openConnection();
-            HttpURLConnection http = (HttpURLConnection) con;
-            http.setRequestMethod("POST");
-            http.setDoOutput(true);
+                    + commitSHA + "?access_token=989db3b2eeee2ecabdd7fd93d743d57f6f22e305");
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "application/vnd.github.v3+json; charset=UTF-8");
+            con.setRequestProperty("Accept-Type", "application/vnd.github.v3+json; charset=UTF-8");
+            con.setDoOutput(true);
 
             byte[] out;
 
             // If there are failures, set status to failure, else set to success
-            if (fails > 0) {
+            if (!buildSuccess) {
                 out = "{\"state\":\"failure\"}" .getBytes(StandardCharsets.UTF_8);
             } else {
                 out = "{\"state\":\"success\"}" .getBytes(StandardCharsets.UTF_8);
@@ -180,15 +194,66 @@ public class WebhookProcesser {
 
             int length = out.length;
 
-            http.setFixedLengthStreamingMode(length);
-            http.setRequestProperty("Content-Type", "application/vnd.github.v3+json; charset=UTF-8");
-            http.connect();
-            try(OutputStream os = http.getOutputStream()) {
+            con.setFixedLengthStreamingMode(length);
+            con.connect();
+            try(OutputStream os = con.getOutputStream()) {
                 os.write(out);
             }
+
+            /*
+            try(BufferedReader br = new BufferedReader(
+                    new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine = null;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                str = response.toString();
+            }
+             */
+
+            str = Integer.toString(con.getResponseCode());
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return str;
+    }
+
+    public static boolean commit_status_success_check(String commitSHA) {
+        boolean ret = false;
+        String str = "";
+        try {
+            URL url = new URL("https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/commits/"
+                    + commitSHA + "/status");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+
+            int status = con.getResponseCode();
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            Pattern pattern = Pattern.compile("(success|failure|pending|error)");
+            Matcher matcher;
+
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                matcher = pattern.matcher(inputLine);
+                if (matcher.find()) {
+                    str = matcher.group(1);
+                }
+            }
+            in.close();
+            con.disconnect();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (str.equals("success")) {
+            ret = true;
+        }
+
+        return ret;
     }
 }
