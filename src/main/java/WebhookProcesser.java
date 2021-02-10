@@ -157,37 +157,31 @@ public class WebhookProcesser {
      * Processes info from commit and sets CI build result status
      */
     public static void set_build_result(String commitSHA, JsonObject json) {
-        // Fetch info about failures
+        // Fetch info about failures from JSON
         int fails = json.getInt("Failures");
 
-        // Set up HTTP Post Request
+        // Set up HTTP Post Request for sending JSON
         try {
             URL url = new URL("https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/statuses/"
-                    + commitSHA + "?access_token=a2c3806b17791138e62804b3d71c949912abd19e");
+                    + commitSHA + "?access_token=bf12122b5319587856fda78924afd3769887ba42");
             URLConnection con = url.openConnection();
             HttpURLConnection http = (HttpURLConnection) con;
             http.setRequestMethod("POST");
             http.setDoOutput(true);
 
-            Map<String,String> arguments = new HashMap<>();
+            byte[] out;
 
             // If there are failures, set status to failure, else set to success
             if (fails > 0) {
-                arguments.put("state", "success");
+                out = "{\"state\":\"failure\"}" .getBytes(StandardCharsets.UTF_8);
             } else {
-                arguments.put("state", "failure");
+                out = "{\"state\":\"success\"}" .getBytes(StandardCharsets.UTF_8);
             }
 
-            // Convert input to proper format for POST from HTTP form
-            StringJoiner sj = new StringJoiner("&");
-            for(Map.Entry<String,String> entry : arguments.entrySet())
-                sj.add(URLEncoder.encode(entry.getKey(), "UTF-8") + "="
-                        + URLEncoder.encode(entry.getValue(), "UTF-8"));
-            byte[] out = sj.toString().getBytes(StandardCharsets.UTF_8);
             int length = out.length;
 
             http.setFixedLengthStreamingMode(length);
-            http.setRequestProperty("Content-Type", "application/vnd.github.v3+json");
+            http.setRequestProperty("Content-Type", "application/vnd.github.v3+json; charset=UTF-8");
             http.connect();
             try(OutputStream os = http.getOutputStream()) {
                 os.write(out);
