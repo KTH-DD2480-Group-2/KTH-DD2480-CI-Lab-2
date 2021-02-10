@@ -170,24 +170,4 @@ public class ContinuousIntegrationServerTest {
         File file = new File("extracted/KTH-DD2480-CI-Lab-2-44ccb7345a39b21e67effa10101e9e61157b6526");
         assertTrue(file.exists());
     }
-
-    /**
-     * Test the ability of the server to change commit status to success
-     */
-    @Test
-    void main_ValidInput_SetCommitStatusSuccess() {
-        String commitSHA = "e1588e6f8ad6a8cb5463337f357b484660a5d1eb";
-        WebhookProcesser.set_build_result(commitSHA, true);
-        assertTrue(WebhookProcesser.commit_status_success_check(commitSHA));
-    }
-
-    /**
-     * Test the ability of the server to change commit status to failure
-     */
-    @Test
-    void main_ValidInput_SetCommitStatusFailure() {
-        String commitSHA = "e1588e6f8ad6a8cb5463337f357b484660a5d1eb";
-        WebhookProcesser.set_build_result(commitSHA, false);
-        assertFalse(WebhookProcesser.commit_status_success_check(commitSHA));
-    }
 }
