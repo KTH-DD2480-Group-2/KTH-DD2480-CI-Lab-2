@@ -176,7 +176,7 @@ public class WebhookProcesser {
         // Set up HTTP Post Request for sending JSON
         try {
             URL url = new URL("https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/statuses/"
-                    + commitSHA + "?access_token=d5add3ff3a3245a54a4b0985cb223639a802f1bd");
+                    + commitSHA + "?access_token=76a59e16c7c1cc79251627b306f2263d8fe04a50");
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/vnd.github.v3+json; charset=UTF-8");
