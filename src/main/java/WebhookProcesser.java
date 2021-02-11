@@ -32,14 +32,22 @@ public class WebhookProcesser {
     public static void handleWebhookEvent(JSONObject json) throws IOException {
         String commitSHA = json.get("after").toString();
 
+        setCommitStatus("pending", commitSHA);
+        
         downloadRevision(commitSHA);
-
+        
         extractZip();
 
-        JsonObject jsonObj = runBuild(commitSHA);
+        setCommitStatus("in_progress", commitSHA);
 
-        set_build_result(commitSHA, check_build_succeeded(jsonObj));
+        JsonObject buildResultAsJSON = runBuild(commitSHA);
 
+        if (isBuildSuccess(buildResultAsJSON)) {
+            setCommitStatus("success", commitSHA);
+        }
+        else {
+            setCommitStatus("failure", commitSHA);
+        }
     }
 
     /**
@@ -103,15 +111,23 @@ public class WebhookProcesser {
         ProcessBuilder processBuilder = new ProcessBuilder();
         processBuilder.command("cmd.exe", "/c", "mvn clean install");
         processBuilder.directory(new File("extracted\\KTH-DD2480-CI-Lab-2-" + commitSHA));
-
-        JsonObjectBuilder json = Json.createObjectBuilder();
-
+        JsonObject buildResult = Json.createObjectBuilder().build();
         try {
             Process process = processBuilder.start();
+            buildResult =  getBuildResultAsJson(process);
+            saveJsonAsFile(buildResult, commitSHA);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return buildResult;
+    }
 
-            //collect test data for JSON log
-            BufferedReader reader =
-                    new BufferedReader(new InputStreamReader(process.getInputStream()));
+    private static JsonObject getBuildResultAsJson(Process process) {
+        JsonObjectBuilder json = Json.createObjectBuilder();
+        JsonObject jsonResult = Json.createObjectBuilder().build();
+        try {
+         //collect test data for JSON log
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
@@ -140,43 +156,44 @@ public class WebhookProcesser {
             }
             int exitCode = process.waitFor();
             System.out.println("\nExited with error code : " + exitCode);
+            jsonResult = json.build();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return jsonResult;
+    }
 
-            //save the JSON to file
-            String jsonString = json.build().toString();
+    private static void saveJsonAsFile(JsonObject json, String commitSHA) {
+        try {
+            String jsonString = json.toString();
             try (PrintStream out = new PrintStream(new FileOutputStream("buildlogs/sha=" + commitSHA + ".json"))) {
                 out.print(jsonString);
             }
-        } catch (IOException | InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return json.build();
     }
 
     /**
      * Checks if build succeeded or not
      */
-    public static boolean check_build_succeeded(JsonObject json) {
+    public static boolean isBuildSuccess(JsonObject buildResult) {
         // Fetch info about errors and failures from JSON
-        int fails = json.getInt("Failures");
-        int errors = json.getInt("Errors");
-
+        var jsonStatistics = buildResult.getJsonObject("statistics");
+        int fails = Integer.parseInt(jsonStatistics.getString("Failures"));
+        int errors = Integer.parseInt(jsonStatistics.getString("Errors"));
         if (fails > 0 || errors > 0) {
             return false;
         }
         return true;
     }
 
-    /**
-     * Processes info from commit and sets CI build result status, returns response as a String
-     */
-    public static String set_build_result(String commitSHA, boolean buildSuccess) {
-        String str = "";
-
+    private static void setCommitStatus(String status, String commitSHA) {
         // Set up HTTP Post Request for sending JSON
         try {
             URL url = new URL("https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/statuses/"
-                    + commitSHA + "?access_token=76a59e16c7c1cc79251627b306f2263d8fe04a50");
+                    + commitSHA + "?access_token=dbe193f330b0b7212c5a67e8097b3a6ecd993c82");
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/vnd.github.v3+json; charset=UTF-8");
@@ -184,14 +201,7 @@ public class WebhookProcesser {
             con.setDoOutput(true);
 
             byte[] out;
-
-            // If there are failures, set status to failure, else set to success
-            if (!buildSuccess) {
-                out = "{\"state\":\"failure\"}" .getBytes(StandardCharsets.UTF_8);
-            } else {
-                out = "{\"state\":\"success\"}" .getBytes(StandardCharsets.UTF_8);
-            }
-
+            out = ("{\"state\":\""+ status +"\", \"context\": \"KTH-DD2480-CI\"}" ).getBytes(StandardCharsets.UTF_8);
             int length = out.length;
 
             con.setFixedLengthStreamingMode(length);
@@ -199,61 +209,8 @@ public class WebhookProcesser {
             try(OutputStream os = con.getOutputStream()) {
                 os.write(out);
             }
-
-            /*
-            try(BufferedReader br = new BufferedReader(
-                    new InputStreamReader(con.getInputStream(), "utf-8"))) {
-                StringBuilder response = new StringBuilder();
-                String responseLine = null;
-                while ((responseLine = br.readLine()) != null) {
-                    response.append(responseLine.trim());
-                }
-                str = response.toString();
-            }
-             */
-
-            str = Integer.toString(con.getResponseCode());
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return str;
-    }
-
-    public static boolean commit_status_success_check(String commitSHA) {
-        boolean ret = false;
-        String str = "";
-        try {
-            URL url = new URL("https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/commits/"
-                    + commitSHA + "/status");
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-
-            int status = con.getResponseCode();
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            Pattern pattern = Pattern.compile("(success|failure|pending|error)");
-            Matcher matcher;
-
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                matcher = pattern.matcher(inputLine);
-                if (matcher.find()) {
-                    str = matcher.group(1);
-                }
-            }
-            in.close();
-            con.disconnect();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (str.equals("success")) {
-            ret = true;
-        }
-
-        return ret;
     }
 }
