@@ -18,6 +18,9 @@ There are multiples ways to add dependencies to a maven project.
 * **Adding them manually**. 
   * IntelliJ might sometimes not find the package that we want to import. In these cases, the packages need to be manually added to the pom.xml file. You can either search only for the package and add the dependency in the pom.xml file. Or you can do the search in the pom.xml file itself: <br/> <img style="width: 50%" src="./assets/intelliJ-dependecies-add-manually-example.png">
 
+#### Deployment
+Before you start the sever, you need to add an system variable with a personal access token. The name of the system variable should be `KTH_DD2480_CI_TOKEN` and have the value of you access token, e.g "35ddf2a243272a435da75d4cesas9ead5asdf584a" (Just an example, this specific access token do not work). Instruction of how to add a new system variable can be found here: https://www.architectryan.com/2018/08/31/how-to-change-environment-variables-on-windows-10/
+
 ### Naming Conventions
 #### Commit messages
 * `#<issue-num> fix|feat|docs|test|style: <Description of commit>`
