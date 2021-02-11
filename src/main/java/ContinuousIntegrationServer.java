@@ -10,7 +10,7 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
-
+import org.json.JSONObject;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
 
@@ -59,7 +59,13 @@ public class ContinuousIntegrationServer extends AbstractHandler {
             case "/" -> response.getWriter().print("CI server working!");
             case "/api/webhook-processer" -> {
                 response.getWriter().print("Handling webhook event");
-                WebhookProcesser.handleWebhookEvent(request);
+                // WebhookProcesser.handleWebhookEvent(request);
+                // // Need to start the webhook in a thread as the github webhook has a short timeout
+                JSONObject webhookJsonData = WebhookProcesser.payloadToJSON(request);
+                RunnableWebhookProcesser runnableWebhookProcesser = new RunnableWebhookProcesser(webhookJsonData);
+                Thread webhookProcesserThread = new Thread(runnableWebhookProcesser);
+                webhookProcesserThread.start();
+
             }
             default -> response.getWriter().print("404. Page not found");
         }

@@ -123,20 +123,6 @@ public class ContinuousIntegrationServerTest {
     }
 
     /**
-     * Test webhook handling with valid payload.
-     *
-     * @throws IOException
-     * @throws InterruptedException
-     */
-    @Test
-    void main_ValidInput_HandlingValidWebhook() throws IOException, InterruptedException {
-        postWithPayload("http://127.0.0.1:8081/api/webhook-processer","src/test/java/ValidGitPayload.txt");
-        File file = new File(System.getProperty("user.dir") + "/revision.zip");
-        assertTrue(file.exists());
-        assertTrue(file.delete());
-    }
-
-    /**
      * Test webhook handling with invalid payload.
      *
      * @throws IOException

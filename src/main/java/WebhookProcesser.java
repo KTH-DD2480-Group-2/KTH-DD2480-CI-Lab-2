@@ -29,10 +29,7 @@ public class WebhookProcesser {
      *
      * @param request The request data.
      */
-    public static void handleWebhookEvent(HttpServletRequest request) throws IOException {
-
-        JSONObject json = payloadToJSON(request);
-
+    public static void handleWebhookEvent(JSONObject json) throws IOException {
         String commitSHA = json.get("after").toString();
 
         downloadRevision(commitSHA);
@@ -42,6 +39,7 @@ public class WebhookProcesser {
         JsonObject jsonObj = runBuild(commitSHA);
 
         set_build_result(commitSHA, check_build_succeeded(jsonObj));
+
     }
 
     /**
@@ -51,7 +49,8 @@ public class WebhookProcesser {
      * @return a JSON object representing the payload.
      * @throws UnsupportedEncodingException
      */
-    private static JSONObject payloadToJSON(HttpServletRequest request) throws IOException {
+    public static JSONObject payloadToJSON(HttpServletRequest request) throws IOException {
+        request.setCharacterEncoding("utf-8");
         StringBuilder builder = new StringBuilder();
         String aux = "";
         request.setCharacterEncoding("utf-8");
@@ -60,7 +59,8 @@ public class WebhookProcesser {
             builder.append(aux);
         }
 
-        return new JSONObject(builder.toString());
+        String payloadAsString = builder.toString();
+        return new JSONObject(payloadAsString);
     }
 
     /**
