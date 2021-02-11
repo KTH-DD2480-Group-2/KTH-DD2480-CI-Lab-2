@@ -28,4 +28,4 @@ There are multiples ways to add dependencies to a maven project.
 #### Branch name
 * `issue/x-<description-of-branch>`
 
-#### Edit P1
+#### Edit P3
