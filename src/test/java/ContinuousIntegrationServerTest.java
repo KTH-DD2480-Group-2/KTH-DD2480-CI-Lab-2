@@ -17,10 +17,19 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+/**
+ * This class contains tests for ContinuousIntegrationServer and WebhookProcesser
+ *
+ * @author  Adam Jonsson
+ * @author  Hovig Manjikian
+ * @author  Isak Vilhelmsson
+ * @version 1.0
+ * @since   1.0
+ */
 public class ContinuousIntegrationServerTest {
 
     /**
-     * A function for sending an HTTP post request.
+     * Method for sending a HTTP post request.
      *
      * @param url destination address
      * @return response as a String
@@ -41,7 +50,7 @@ public class ContinuousIntegrationServerTest {
     }
 
     /**
-     * A function for sending an HTTP post request that contain a valid and real payload.
+     * Method for sending a HTTP post request that contain a valid and real payload.
      *
      * @param url destination address
      * @return response as a String
@@ -101,7 +110,7 @@ public class ContinuousIntegrationServerTest {
     }
 
     /**
-     * Tests weather the server is up and responding.
+     * Tests whether the server is up and responding.
      *
      * @throws IOException
      * @throws InterruptedException
@@ -123,7 +132,7 @@ public class ContinuousIntegrationServerTest {
     }
 
     /**
-     * Test webhook handling with invalid payload.
+     * Tests webhook handling with invalid payload.
      *
      * @throws IOException
      * @throws InterruptedException
@@ -137,7 +146,7 @@ public class ContinuousIntegrationServerTest {
     }
 
     /**
-     * Test the ability of the server to download a specific copy of the repo.
+     * Tests the ability of the server to download a specific copy of the repo.
      */
     @Test
     void main_ValidInput_DownloadZip() {
@@ -147,7 +156,7 @@ public class ContinuousIntegrationServerTest {
     }
 
     /**
-     * Test the ability of the server to download and extract a specific copy of the repo.
+     * Tests the ability of the server to download and extract a specific copy of the repo.
      */
     @Test
     void main_ValidInput_ExtractZip() {

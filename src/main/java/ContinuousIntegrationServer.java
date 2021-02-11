@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -15,9 +14,16 @@ import org.json.JSONObject;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
 
+
 /**
- * Skeleton of a ContinuousIntegrationServer which acts as webhook
+ * This class is a ContinuousIntegrationServer which acts as webhook.
  * See the Jetty documentation for API documentation of those classes.
+ *
+ * @author  Adam Jonsson
+ * @author  Hovig Manjikian
+ * @version 1.0
+ * @since   1.0
+ *
  */
 public class ContinuousIntegrationServer extends AbstractHandler {
     // used to start the CI server in command line
@@ -25,6 +31,12 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         StartServer(8080);
     }
 
+    /**
+     * Starts a server on specified port number
+     *
+     * @param portNumber port number to run the server on
+     * @throws Exception
+     */
     public static void StartServer(int portNumber) throws Exception {
         Server server = new Server(portNumber); // Starts the server on port 8080
         server.setHandler(new ContinuousIntegrationServer());
@@ -39,6 +51,12 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         server.join();
     }
 
+    /**
+     *
+     *
+     * @param server
+     * @return
+     */
     private static ContextHandler createFrontendHandler(Server server) {
         ContextHandler ctx = new ContextHandler("/dashboard");
         ResourceHandler resourceHandler = new ResourceHandler();
@@ -49,6 +67,16 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         return ctx;
     }
 
+    /**
+     *
+     *
+     * @param target
+     * @param baseRequest
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void handle(String target, Request baseRequest, HttpServletRequest request,
                        HttpServletResponse response) throws IOException, ServletException {
