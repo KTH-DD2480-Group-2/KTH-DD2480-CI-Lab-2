@@ -192,8 +192,9 @@ public class WebhookProcesser {
     private static void setCommitStatus(String status, String commitSHA) {
         // Set up HTTP Post Request for sending JSON
         try {
+            String repoAccessToken = System.getenv("KTH_DD2480_CI_TOKEN");
             URL url = new URL("https://api.github.com/repos/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/statuses/"
-                    + commitSHA + "?access_token=dbe193f330b0b7212c5a67e8097b3a6ecd993c82");
+                    + commitSHA + "?access_token="+repoAccessToken);
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/vnd.github.v3+json; charset=UTF-8");
