@@ -132,7 +132,7 @@ public class ContinuousIntegrationServerTest {
     void main_InvalidInput_HandlingValidWebhook() throws IOException, InterruptedException {
         postWithPayload("http://127.0.0.1:8081/api/webhook-processer","src/test/java/InvalidGitPayload.txt");
         File file = new File("revision.zip");
-        assertTrue(file.exists()); //temporary change
+        assertFalse(file.exists());
         assertFalse(file.delete());
     }
 
