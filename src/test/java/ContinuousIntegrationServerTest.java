@@ -123,20 +123,6 @@ public class ContinuousIntegrationServerTest {
     }
 
     /**
-     * Test webhook handling with valid payload.
-     *
-     * @throws IOException
-     * @throws InterruptedException
-     */
-    @Test
-    void main_ValidInput_HandlingValidWebhook() throws IOException, InterruptedException {
-        postWithPayload("http://127.0.0.1:8081/api/webhook-processer","src/test/java/ValidGitPayload.txt");
-        File file = new File(System.getProperty("user.dir") + "/revision.zip");
-        assertTrue(file.exists());
-        assertTrue(file.delete());
-    }
-
-    /**
      * Test webhook handling with invalid payload.
      *
      * @throws IOException
@@ -154,7 +140,7 @@ public class ContinuousIntegrationServerTest {
      * Test the ability of the server to download a specific copy of the repo.
      */
     @Test
-    void main_ValidInput_DownloadZip(){
+    void main_ValidInput_DownloadZip() {
         WebhookProcesser.downloadRevision("44ccb7345a39b21e67effa10101e9e61157b6526");
         File file = new File("revision.zip");
         assertTrue(file.exists());
@@ -164,7 +150,7 @@ public class ContinuousIntegrationServerTest {
      * Test the ability of the server to download and extract a specific copy of the repo.
      */
     @Test
-    void main_ValidInput_ExtractZip(){
+    void main_ValidInput_ExtractZip() {
         WebhookProcesser.downloadRevision("44ccb7345a39b21e67effa10101e9e61157b6526");
         WebhookProcesser.extractZip();
         File file = new File("extracted/KTH-DD2480-CI-Lab-2-44ccb7345a39b21e67effa10101e9e61157b6526");
