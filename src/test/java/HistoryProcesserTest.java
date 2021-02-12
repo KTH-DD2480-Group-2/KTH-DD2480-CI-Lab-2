@@ -21,6 +21,7 @@ public class HistoryProcesserTest {
             try {
                 PrintStream out = new PrintStream(new FileOutputStream(path + "testfile" + i + ".json"));
                 out.print("{ \"test\": true, \"number\": " + i + " }");
+                out.close();
             } catch (IOException e) {
                 System.err.println("An error occurred while testing the HistoryProcesser.");
                 e.printStackTrace();
