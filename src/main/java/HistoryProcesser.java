@@ -14,14 +14,18 @@ public class HistoryProcesser {
     public HistoryProcesser() throws IOException {
         JSONObject jsonBuilds = new JSONObject();
         JSONArray jsonArray = new JSONArray();
-        String path = "../../../buildlogs";
+        String path = "buildlogs/";
         File dir = new File(path);
+        System.err.println(dir.getAbsolutePath());
+        System.err.println("hiiiiiiii");
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File file : directoryListing) {
+                System.out.println("hello");
                 if (!file.getName().equals("dummy.txt")) {
                     // Do something with child
                     FileReader fileText = new FileReader(file);
+                    System.out.println(fileText);
                     // Add json file to array
                     jsonArray.put(new JSONObject(fileText.read()));
                 }
@@ -34,7 +38,7 @@ public class HistoryProcesser {
     }
 
     /**
-     * 
+     *
      * @return The single history JSON-object as a string
      */
     public static String getAllBuilds() {
