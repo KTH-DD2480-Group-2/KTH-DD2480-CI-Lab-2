@@ -69,8 +69,10 @@ public class ContinuousIntegrationServer extends AbstractHandler {
 
             }
             case "/api/history" -> {
-                String builds = HistoryProcesser.getAllBuilds();
-                response.getWriter().print("Getting all builds...");
+                response.setContentType("application/json;charset=utf-8");
+                HistoryProcesser historyProcesser = new HistoryProcesser("buildlogs/");
+                String builds = historyProcesser.getAllBuilds();
+                response.getWriter().print(builds);
             }
             default -> response.getWriter().print("404. Page not found");
         }

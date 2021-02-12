@@ -5,16 +5,16 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class HistoryProcesser {
-    private static String builds;
+    private String builds;
     /**
      * Handles the request history API call by compiling all JSON-objects in buildlogs
      * into single JSON object of the form {builds: []}
      *
      */
-    public HistoryProcesser() throws IOException {
+    public HistoryProcesser(String buildLogsPath) throws IOException {
         JSONObject jsonBuilds = new JSONObject();
         JSONArray jsonArray = new JSONArray();
-        String path = "buildlogs/";
+        String path = buildLogsPath;
         File dir = new File(path);
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
@@ -39,7 +39,7 @@ public class HistoryProcesser {
      *
      * @return The single history JSON-object as a string
      */
-    public static String getAllBuilds() {
+    public String getAllBuilds() {
         return builds;
     }
 }
