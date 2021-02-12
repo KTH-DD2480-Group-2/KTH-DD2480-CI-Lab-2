@@ -61,6 +61,21 @@ public class HistoryProcesserTest {
     }
 
     /**
+     * Tests the HistoryProcesser with empty input
+     * @throws IOException
+     */
+    @Test
+    void history_empty_input() {
+        String expected = "{ builds: [] }";
+        try {
+            JSONObject JSONtest = new JSONObject((new HistoryProcesser(path)).getAllBuilds());
+            JSONAssert.assertEquals(expected, JSONtest, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Cleans all testfiles with filename 'testfileX.json'
      */
     @AfterEach
