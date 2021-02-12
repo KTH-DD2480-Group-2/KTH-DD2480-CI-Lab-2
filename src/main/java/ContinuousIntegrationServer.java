@@ -68,6 +68,10 @@ public class ContinuousIntegrationServer extends AbstractHandler {
                 webhookProcesserThread.start();
 
             }
+            case "/api/history" -> {
+                HistoryProcesser.getAllBuilds();
+                response.getWriter().print("Getting all builds...");
+            }
             default -> response.getWriter().print("404. Page not found");
         }
     }
