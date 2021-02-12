@@ -6,7 +6,11 @@ import java.io.IOException;
 
 public class HistoryProcesser {
     private static String builds;
-
+    /**
+     * Handles the request history API call by compiling all JSON-objects in buildlogs
+     * into single JSON object of the form {builds: []}
+     *
+     */
     public HistoryProcesser() throws IOException {
         JSONObject jsonBuilds = new JSONObject();
         JSONArray jsonArray = new JSONArray();
@@ -29,6 +33,10 @@ public class HistoryProcesser {
         }
     }
 
+    /**
+     * 
+     * @return The single history JSON-object as a string
+     */
     public static String getAllBuilds() {
         return builds;
     }
