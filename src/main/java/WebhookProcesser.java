@@ -114,7 +114,7 @@ public class WebhookProcesser {
         JsonObject buildResult = Json.createObjectBuilder().build();
         try {
             Process process = processBuilder.start();
-            buildResult =  getBuildResultAsJson(process);
+            buildResult =  getBuildResultAsJson(process, commitSHA);
             saveJsonAsFile(buildResult, commitSHA);
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,7 +122,7 @@ public class WebhookProcesser {
         return buildResult;
     }
 
-    private static JsonObject getBuildResultAsJson(Process process) {
+    private static JsonObject getBuildResultAsJson(Process process, String commitSHA) {
         JsonObjectBuilder json = Json.createObjectBuilder();
         JsonObject jsonResult = Json.createObjectBuilder().build();
         try {
@@ -154,6 +154,7 @@ public class WebhookProcesser {
                 else if(line.contains("Finished at"))
                     json.add("endTime", line.substring(20,line.length()));
             }
+            json.add("commitSHA", commitSHA);
             int exitCode = process.waitFor();
             System.out.println("\nExited with error code : " + exitCode);
             jsonResult = json.build();
