@@ -7,6 +7,11 @@ import { BuildStatusProvider } from './model/build-status-provider';
 import { BuildStatusTimeline } from './components/build-status-timeline';
 import { AppBar, IconButton, Toolbar } from '@material-ui/core';
 import MainPageAppBar from './components/app-bar';
+import {
+  Route,
+  BrowserRouter as Router,
+  Switch,
+} from "react-router-dom";
 
 export default function App() {
   const [buildsLoading, setBuildsLoading] = useState(true);
@@ -24,11 +29,24 @@ export default function App() {
     <React.Fragment>
       <CssBaseline />
       <MainPageAppBar/>
-      <Container maxWidth="md">
-        {
-          buildsLoading ? <h3>Loading</h3> : <BuildStatusTimeline builds={builds}/>
-        }
-      </Container>
+      <Router basename="dashboard">
+        <Switch>
+            <Route path="/:commitSHA">
+              <Container maxWidth="md">
+                {
+                  buildsLoading ? <h3>Loading</h3> : <BuildStatusTimeline builds={builds}/>
+                }
+              </Container>
+            </Route>
+            <Route path="/">
+              <Container maxWidth="md">
+                {
+                  buildsLoading ? <h3>Loading</h3> : <BuildStatusTimeline builds={builds}/>
+                }
+              </Container>
+            </Route>
+        </Switch>
+      </Router>
     </React.Fragment>
   );
 }
