@@ -168,7 +168,7 @@ public class ContinuousIntegrationServerTest {
         boolean frontendTestPass = false;
 
         try {
-            Process process = Runtime.getRuntime().exec("./node/node ./node/node_modules/npm/bin/npm-cli.js test --- --watchAll=false", null, new File("src/main/webapp/ci-frontend/"));
+            Process process = Runtime.getRuntime().exec("node --version", null, new File("src/main/webapp/ci-frontend/"));
             
             // Render all the errors for easier debugging
             BufferedReader input = new BufferedReader(new InputStreamReader(process.getErrorStream()));
@@ -177,6 +177,13 @@ public class ContinuousIntegrationServerTest {
               System.out.println(line);
             }
             input.close();
+
+            BufferedReader input2 = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line2;
+            while ((line2 = input2.readLine()) != null) {
+              System.out.println(line2);
+            }
+            input2.close();
 
             // Check if the frontend test have passed
             frontendTestPass = process.waitFor() == 0;
