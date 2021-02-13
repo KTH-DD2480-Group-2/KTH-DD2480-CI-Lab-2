@@ -10,8 +10,11 @@ import org.apache.http.impl.client.HttpClients;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -155,5 +158,31 @@ public class ContinuousIntegrationServerTest {
         WebhookProcesser.extractZip();
         File file = new File("extracted/KTH-DD2480-CI-Lab-2-44ccb7345a39b21e67effa10101e9e61157b6526");
         assertTrue(file.exists());
+    }
+
+    /**
+     * Run all the frontend tests and that it works as expected
+     */
+    @Test
+    void main_Frontend_Test() {
+        boolean frontendTestPass = false;
+
+        try {
+            Process process = Runtime.getRuntime().exec("npm test --- --watchAll=false", null, new File("src/main/webapp/ci-frontend/"));
+            
+            // Render all the errors for easier debugging
+            BufferedReader input = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            String line;
+            while ((line = input.readLine()) != null) {
+              System.out.println(line);
+            }
+            input.close();
+
+            // Check if the frontend test have passed
+            frontendTestPass = process.waitFor() == 0;
+        } catch (Exception e) {
+        }
+
+        assertTrue(frontendTestPass); 
     }
 }
