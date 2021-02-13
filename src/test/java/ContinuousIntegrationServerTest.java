@@ -161,14 +161,15 @@ public class ContinuousIntegrationServerTest {
     }
 
     /**
-     * Run all the frontend tests and that it works as expected
+     * Run all the frontend tests and that it works as expected.
+     * Currently inactive as server have old version of node and npm.
      */
-    @Test
+    // @Test
     void main_Frontend_Test() {
         boolean frontendTestPass = false;
 
         try {
-            Process process = Runtime.getRuntime().exec("./node/node ./node/node_modules/npm/bin/npm-cli.js --version", null, new File("src/main/webapp/ci-frontend/"));
+            Process process = Runtime.getRuntime().exec("npm test --- --watchAll=false", null, new File("src/main/webapp/ci-frontend/"));
             
             // Render all the errors for easier debugging
             BufferedReader input = new BufferedReader(new InputStreamReader(process.getErrorStream()));
