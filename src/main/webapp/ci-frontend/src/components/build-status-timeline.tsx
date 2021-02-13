@@ -8,15 +8,15 @@ import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
 import { TimelineOppositeContent } from '@material-ui/lab';
 import { BuildStatusCard } from "./build-status-card";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 
 type BuildStatusTimelineProps = {
     builds: BuildStatusItem[],
 }
   
 export const BuildStatusTimeline: FunctionComponent<BuildStatusTimelineProps> = ({ builds }) =>{ 
-    const { commitSHA } = useParams<{commitSHA: string}>();
     const scrollTarget = useRef<HTMLInputElement>(null);
+    var commitSHA = new URLSearchParams(useLocation().search).get("commitSHA");
 
     useEffect(() => {
         if (scrollTarget) {

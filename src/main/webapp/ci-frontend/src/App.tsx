@@ -31,13 +31,6 @@ export default function App() {
       <MainPageAppBar/>
       <Router basename="dashboard">
         <Switch>
-            <Route path="/:commitSHA">
-              <Container maxWidth="md">
-                {
-                  buildsLoading ? <h3>Loading</h3> : <BuildStatusTimeline builds={builds}/>
-                }
-              </Container>
-            </Route>
             <Route path="/">
               <Container maxWidth="md">
                 {
