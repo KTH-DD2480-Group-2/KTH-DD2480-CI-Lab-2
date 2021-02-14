@@ -41,6 +41,22 @@ More over, every merge into main needs to have an approved review. A set of rule
 ### Contributions of each member
 * **Adam Jonsson**: 
 * **Hovig Manjikian**: 
-* **Isak Vilhelmsson**: 
+* **Isak Vilhelmsson**: Added functionality for CI to extract and run a repo zip ([PR][PR-EXTRACTANDRUN]). Did setup for the 'contributions' part of the README ([PR][PR-CONTR]).
 * **Lara Rostami**: 
 * **Tony Le**: 
+
+
+[PR-CONTR]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/29
+[PR-JAVADOC]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/27
+[PR-URLHANDLER]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/26
+[PR-INFOCARDS]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/25
+[PR-PARSHIST]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/21
+[PR-BUILDSTOJSON]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/19
+[PR-SYSVARTOKEN]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/18
+[PR-SETCOMMITSTAT]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/16
+[PR-EXTRACTANDRUN]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/15
+[PR-SKELETONFRONTE]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/14
+[PR-FETCHDATA]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/9
+[PR-CISKELETON]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/6
+[PR-LINKTRAVIS]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/4
+[PR-NAMINGCONV]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/3
