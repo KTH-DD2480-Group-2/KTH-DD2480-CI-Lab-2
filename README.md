@@ -31,4 +31,16 @@ Before you start the sever, you need to add an system variable with a personal a
 #### Branch name
 * `issue/x-<description-of-branch>`
 
+## Statement of contributions
+The main procedure for developing the continuous integration (CI) server was to use group meetings to discuss what
+parts the server should consist of and in what order they could be implemented. The team member that implemented a 
+part that could be tested was also responsible for creating tests for it.
 
+
+More over, every merge into main needs to have an approved review. A set of rules was set in the repository to prevent pushes directly into main and merges when no approved review existed. Squash and merge was used for every pull-request to prevent unnecessary commits in the main branch. As a result, commits such as "Fixed typo" or "Added comment" is not visible and will minimize showing irrelevant changes in the main branch. The information is however not lost, as it is still visible under the given pull-request.
+### Contributions of each member
+* **Adam Jonsson**: 
+* **Hovig Manjikian**: 
+* **Isak Vilhelmsson**: 
+* **Lara Rostami**: 
+* **Tony Le**: 
