@@ -108,7 +108,7 @@ public class WebhookProcesser {
     /**
      * Extracts the zip produced by downloadRevision(String commitSHA).
      */
-    public static void extractZip(){
+    public static void extractZip() {
         try {
             ZipFile zipFile = new ZipFile("revision.zip");
             zipFile.extractAll("extracted");
@@ -133,7 +133,7 @@ public class WebhookProcesser {
         JsonObject buildResult = Json.createObjectBuilder().build();
         try {
             Process process = processBuilder.start();
-            buildResult =  getBuildResultAsJson(process);
+            buildResult =  getBuildResultAsJson(process, commitSHA);
             saveJsonAsFile(buildResult, commitSHA);
         } catch (Exception e) {
             e.printStackTrace();
@@ -141,13 +141,14 @@ public class WebhookProcesser {
         return buildResult;
     }
 
+
     /**
      * Parses JSON containing build result in a more intuitive way.
      *
      * @param process Process object which the build runs on.
      * @return JSON object containing the test results of the build.
      */
-    private static JsonObject getBuildResultAsJson(Process process) {
+    private static JsonObject getBuildResultAsJson(Process process, String commitSHA) {
         JsonObjectBuilder json = Json.createObjectBuilder();
         JsonObject jsonResult = Json.createObjectBuilder().build();
         try {
@@ -179,6 +180,7 @@ public class WebhookProcesser {
                 else if(line.contains("Finished at"))
                     json.add("endTime", line.substring(20,line.length()));
             }
+            json.add("commitSHA", commitSHA);
             int exitCode = process.waitFor();
             System.out.println("\nExited with error code : " + exitCode);
             jsonResult = json.build();
@@ -188,6 +190,7 @@ public class WebhookProcesser {
         
         return jsonResult;
     }
+
 
     /**
      * Takes a JSON object containing build data and saves it to a file named after the commit hash.
