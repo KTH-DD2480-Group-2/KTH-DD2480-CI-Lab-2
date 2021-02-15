@@ -36,15 +36,18 @@ The main procedure for developing the continuous integration (CI) server was to 
 parts the server should consist of and in what order they could be implemented. The team member that implemented a 
 part that could be tested was also responsible for creating tests for it.
 
-
 More over, every merge into main needs to have an approved review. A set of rules was set in the repository to prevent pushes directly into main and merges when no approved review existed. Squash and merge was used for every pull-request to prevent unnecessary commits in the main branch. As a result, commits such as "Fixed typo" or "Added comment" is not visible and will minimize showing irrelevant changes in the main branch. The information is however not lost, as it is still visible under the given pull-request.
 ### Contributions of each member
-* **Adam Jonsson**: 
+* **Adam Jonsson**: Added frontend for the CI server [PR](PR-SKELETONFRONTE). Fixed bug regarding commit status [PR](PR-SYSVARTOKEN).  Added the skelton to for the ContinuousIntegrationServer.java [PR](PR-CISKELETON). Created repository as an origination and added rules for the repository.
 * **Hovig Manjikian**: Added tests to for the ContinuousIntegrationServer.java [PR](PR-CISKELETON). Added the functionality of parsing the webhook and fetching the relevant revision from GitHub [PR](PR-FETCHDATA). Reviewed [PR](PR-SKELETONFRONTE), [PR](PR-SYSVARTOKEN), [PR](PR-PARSHIST). Configured Ngrok and depoyed the server. 
 * **Isak Vilhelmsson**: Added functionality for CI to extract and run a repo zip ([PR][PR-EXTRACTANDRUN]). Did setup for the 'contributions' part of the README ([PR][PR-CONTR]).
 * **Lara Rostami**: 
 * **Tony Le**: Implemented functionality for the CI to retrieve and change commit status ([PR][PR-SETCOMMITSTAT]), and ensured that all classes and methods had proper comments and descriptions for Javadoc generation ([PR][PR-JAVADOC]).
 
+### P+ - Build History & Frontend
+We are storing the build history and have also built an frontend for it that we are proud of. An overview of all builds can be accessed here: http://ba7b413bd96c.ngrok.io/dashboard/. Here is a few samples of builds that the server have stored: 
+* (Build Failed) http://ba7b413bd96c.ngrok.io/dashboard?commitSHA=fe0c606fd6d49d94c29e95fc70466b1035d524ee
+* (Build Succeeded) http://ba7b413bd96c.ngrok.io/dashboard?commitSHA=6aed4581a17e6664174c12c16175a36cefbabb14
 
 [PR-CONTR]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/29
 [PR-JAVADOC]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/27
