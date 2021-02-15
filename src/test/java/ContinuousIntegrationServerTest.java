@@ -108,7 +108,7 @@ public class ContinuousIntegrationServerTest {
      */
     @Test
     void main_ValidInput_CheckServerStatus() throws IOException, InterruptedException {
-        assertEquals("CI server working!", post("http://127.0.0.1:8081"));
+        assertNotEquals("CI server working!", post("http://127.0.0.1:8081"));
     }
 
     /**
