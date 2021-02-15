@@ -40,7 +40,7 @@ part that could be tested was also responsible for creating tests for it.
 More over, every merge into main needs to have an approved review. A set of rules was set in the repository to prevent pushes directly into main and merges when no approved review existed. Squash and merge was used for every pull-request to prevent unnecessary commits in the main branch. As a result, commits such as "Fixed typo" or "Added comment" is not visible and will minimize showing irrelevant changes in the main branch. The information is however not lost, as it is still visible under the given pull-request.
 ### Contributions of each member
 * **Adam Jonsson**: 
-* **Hovig Manjikian**: Added tests to for the ContinuousIntegrationServer.java [PR-CISKELETON]. Added the functionality of parsing the webhook and fetching the relevant revision from GitHub [PR-FETCHDATA]. Reviewed [PR-SKELETONFRONTE],[PR-SYSVARTOKEN],[PR-PARSHIST]. Configured Ngrok and depoyed the server. 
+* **Hovig Manjikian**: Added tests to for the ContinuousIntegrationServer.java [PR](PR-CISKELETON). Added the functionality of parsing the webhook and fetching the relevant revision from GitHub [PR](PR-FETCHDATA). Reviewed [PR](PR-SKELETONFRONTE), [PR](PR-SYSVARTOKEN), [PR](PR-PARSHIST). Configured Ngrok and depoyed the server. 
 * **Isak Vilhelmsson**: Added functionality for CI to extract and run a repo zip ([PR][PR-EXTRACTANDRUN]). Did setup for the 'contributions' part of the README ([PR][PR-CONTR]).
 * **Lara Rostami**: 
 * **Tony Le**: Implemented functionality for the CI to retrieve and change commit status ([PR][PR-SETCOMMITSTAT]), and ensured that all classes and methods had proper comments and descriptions for Javadoc generation ([PR][PR-JAVADOC]).
