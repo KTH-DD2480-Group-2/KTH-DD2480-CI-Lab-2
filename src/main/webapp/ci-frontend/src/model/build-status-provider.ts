@@ -3,7 +3,6 @@ import { BuildStatusItem } from "./build-status-item";
 
 export class BuildStatusProvider {
     static async getAllBuildsFromCIServer() : Promise<BuildStatusItem[]> {
-        // Dummy promise
         var historyFetch = await fetch("/api/history");
         var historyAsJson = await historyFetch.json();
         var buildStatusItems: BuildStatusItem[] = historyAsJson.builds.map((buildStatusItemAsJson: any) => {
