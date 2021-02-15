@@ -44,10 +44,10 @@ export const BuildStatusCard: FunctionComponent<BuildStatusCardProps> = ({ build
           }
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          Took 394 seconds
+          Took {buildStatus.duration}
         </Typography>
-        <Typography variant="body2" component="p">
-          TODO: Add more info here if needed
+        <Typography variant="h6" component="h6">
+          Test Passed: <b style={{color: "#00aa00"}}>{buildStatus.numberOfTestsPassed}</b> --- Test Failed: <b style={{color: "#ff0000"}}>{buildStatus.numberOfTestsFailed}</b>
         </Typography>
       </CardContent>
     </Card>
