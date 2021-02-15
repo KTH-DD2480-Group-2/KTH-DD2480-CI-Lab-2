@@ -26,14 +26,15 @@ const useStyles = makeStyles({
 
 type BuildStatusCardProps = {
     buildStatus: BuildStatusItem,
+    isURLTarget: boolean,
 }
   
 
-export const BuildStatusCard: FunctionComponent<BuildStatusCardProps> = ({ buildStatus }) =>  {
+export const BuildStatusCard: FunctionComponent<BuildStatusCardProps> = ({ buildStatus, isURLTarget = false }) =>  {
   const classes = useStyles();
 
   return (
-    <Card elevation={3} className={classes.root}>
+    <Card elevation={3} style={{backgroundColor: isURLTarget ? "#ffffaa" : "ffffff"}} className={classes.root}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
             Commit: <a href={"https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/commit/" + buildStatus.commitSHA}>{buildStatus.commitSHA}</a> 
