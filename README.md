@@ -43,7 +43,7 @@ More over, every merge into main needs to have an approved review. A set of rule
 * **Hovig Manjikian**: 
 * **Isak Vilhelmsson**: Added functionality for CI to extract and run a repo zip ([PR][PR-EXTRACTANDRUN]). Did setup for the 'contributions' part of the README ([PR][PR-CONTR]).
 * **Lara Rostami**: 
-* **Tony Le**: 
+* **Tony Le**: Implemented functionality for the CI to retrieve and change commit status ([PR][PR-SETCOMMITSTAT]), and ensured that all classes and methods had proper comments and descriptions for Javadoc generation ([PR][PR-JAVADOC]).
 
 
 [PR-CONTR]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/29
