@@ -41,7 +41,7 @@ More over, every merge into main needs to have an approved review. A set of rule
 * **Adam Jonsson**: Added frontend for the CI server [PR](PR-SKELETONFRONTE). Fixed bug regarding commit status [PR](PR-SYSVARTOKEN).  Added the skelton to for the ContinuousIntegrationServer.java [PR](PR-CISKELETON). Created repository as an origination and added rules for the repository.
 * **Hovig Manjikian**: Added tests to for the ContinuousIntegrationServer.java [PR](PR-CISKELETON). Added the functionality of parsing the webhook and fetching the relevant revision from GitHub [PR](PR-FETCHDATA). Reviewed [PR](PR-SKELETONFRONTE), [PR](PR-SYSVARTOKEN), [PR](PR-PARSHIST). Configured Ngrok and depoyed the server. 
 * **Isak Vilhelmsson**: Added functionality for CI to extract and run a repo zip ([PR][PR-EXTRACTANDRUN]). Did setup for the 'contributions' part of the README ([PR][PR-CONTR]).
-* **Lara Rostami**: 
+* **Lara Rostami**: Implemented functionality for collecting the history of all builds in .json-format and sending it to the frontend ([PR][PR-HISTORY]).
 * **Tony Le**: Implemented functionality for the CI to retrieve and change commit status ([PR][PR-SETCOMMITSTAT]), and ensured that all classes and methods had proper comments and descriptions for Javadoc generation ([PR][PR-JAVADOC]).
 
 ### P+ - Build History & Frontend
@@ -63,3 +63,4 @@ We are storing the build history and have also built an frontend for it that we 
 [PR-CISKELETON]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/6
 [PR-LINKTRAVIS]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/4
 [PR-NAMINGCONV]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/3
+[PR-HISTORY]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/11
