@@ -8,6 +8,9 @@
 * To start the project, run `mvn exec:java "-Dexec.mainClass=ContinuousIntegrationServer"`. You can also run the project by running or debugging the main function in the ContinuousIntegrationServer class using an IDE. This would start a server on port 8080 that you can access in `http://localhost:8080/`. You can also access the frontend dashboard in `http://localhost:8080/dashboard`.
 * To start the tests, run `mvn test`.
 
+### JavaDoc
+The JavaDoc can be accessed from here: https://kth-dd2480-ci-lab-2-java-doc.web.app/package-summary.html
+
 #### Frontend
 * In order to get started on developing the frontend part of the CI, you will need node.js version 12 or later.
 * You can start the frontend server by going running `npm install` and then `npm start` in the src/main/webapp/ci-frontend folder.
