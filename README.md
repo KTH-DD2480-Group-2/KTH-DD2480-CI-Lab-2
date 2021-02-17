@@ -44,10 +44,24 @@ More over, every merge into main needs to have an approved review. A set of rule
 * **Lara Rostami**: Implemented functionality for collecting the history of all builds in .json-format and sending it to the frontend ([PR][PR-HISTORY]).
 * **Tony Le**: Implemented functionality for the CI to retrieve and change commit status ([PR][PR-SETCOMMITSTAT]), and ensured that all classes and methods had proper comments and descriptions for Javadoc generation ([PR][PR-JAVADOC]).
 
-### P+ - Build History & Frontend
-We are storing the build history and have also built an frontend for it that we are proud of. An overview of all builds can be accessed here: http://ba7b413bd96c.ngrok.io/dashboard/. Here is a few samples of builds that the server have stored: 
-* (Build Failed) http://ba7b413bd96c.ngrok.io/dashboard?commitSHA=fe0c606fd6d49d94c29e95fc70466b1035d524ee
-* (Build Succeeded) http://ba7b413bd96c.ngrok.io/dashboard?commitSHA=6aed4581a17e6664174c12c16175a36cefbabb14
+### P - Features & Grading
+* P0 - See this README file and this repository.
+* P1 - The CI server extract the project from the pushed commit and runs `mvn clean install` which builds the project. The CI server scan the output of the command and notifies GITHUB if the build was success full or not. 
+* P2 - The CI server the same command `mvn clean install` which also tests the project. Here as well, the CI server scan the output of the command and notifies GITHUB if the build was success full or not.
+* P3 - We used GitHubs REST-API to notify when the server began the building and testing. It also notifies when  the server was done by either returning "success" or "failure". The history of the notification of our CI server can be seen in the latest commits in the main and assessment branch.
+* P4 - We have used a prefix conversion for all commits and have linked issues and pull-request to them all: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/commits/main.
+* P5 - We created a JavaDoc and published it on github.io (See section "JavaDoc" in this README for the link).
+
+* **(P+)** P6 - We are storing the build history, even if the server is rebooted. The build history can be accessed here:
+  * (All builds) http://ba7b413bd96c.ngrok.io/dashboard/
+  * (Build Failed) http://ba7b413bd96c.ngrok.io/dashboard?commitSHA=fe0c606fd6d49d94c29e95fc70466b1035d524ee
+  * (Build Succeeded) http://ba7b413bd96c.ngrok.io/dashboard?commitSHA=6aed4581a17e6664174c12c16175a36cefbabb14
+
+* **(P+)** P7 - We have built an frontend for the build history that we are proud of:
+  * http://ba7b413bd96c.ngrok.io/dashboard/
+
+* **(P+)** P8 - All commits have (expect the first one) has an issue and a PR linked to it.
+  * See main branch here: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/commits/main
 
 [PR-CONTR]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/29
 [PR-JAVADOC]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/27
