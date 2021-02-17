@@ -41,23 +41,23 @@ describe("Test that build status card render data correctly", () => {
     })
     it("Render commit sha", () => {
         act(() => {
-            render(<BuildStatusCard buildStatus={buildStatusItemSuccess} />, container);
+            render(<BuildStatusCard isURLTarget={false} buildStatus={buildStatusItemSuccess} />, container);
         });
         expect(container!.textContent).toContain("ABC123");
     })
     it("Render success", () => {
         act(() => {
-            render(<BuildStatusCard buildStatus={buildStatusItemSuccess} />, container);
+            render(<BuildStatusCard isURLTarget={false} buildStatus={buildStatusItemSuccess} />, container);
         });
         expect(container!.textContent).toContain("Build Succeeded");
         act(() => {
-            render(<BuildStatusCard buildStatus={buildStatusItemFailed} />, container);
+            render(<BuildStatusCard isURLTarget={false} buildStatus={buildStatusItemFailed} />, container);
         });
         expect(container!.textContent).toContain("Build Failed");
     })
     it("Render duration", () => {
         act(() => {
-            render(<BuildStatusCard buildStatus={buildStatusItemSuccess} />, container);
+            render(<BuildStatusCard isURLTarget={false} buildStatus={buildStatusItemSuccess} />, container);
         });
         expect(container!.textContent).toContain("Took 100 s");
     })
