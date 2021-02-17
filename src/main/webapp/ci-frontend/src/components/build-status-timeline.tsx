@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react"
-import { BuildStatus } from "../model/build-status-item"
+import { BuildStatusItem } from "../model/build-status-item"
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
@@ -10,14 +10,14 @@ import { TimelineOppositeContent } from '@material-ui/lab';
 import { BuildStatusCard } from "./build-status-card";
 
 type BuildStatusTimelineProps = {
-    builds: BuildStatus[],
+    builds: BuildStatusItem[],
 }
   
 export const BuildStatusTimeline: FunctionComponent<BuildStatusTimelineProps> = ({ builds }) => <div>
     <Timeline align="right">
         {
             builds.map(build => {
-                return <TimelineItem key={build.buildNumber}>
+                return <TimelineItem key={build.commitSHA}>
                     <TimelineOppositeContent>
                         <BuildStatusCard buildStatus={build}/>
                     </TimelineOppositeContent>

@@ -5,7 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { BuildStatus } from '../model/build-status-item';
+import { BuildStatusItem } from '../model/build-status-item';
 
 const useStyles = makeStyles({
   root: {
@@ -25,19 +25,18 @@ const useStyles = makeStyles({
 });
 
 type BuildStatusCardProps = {
-    buildStatus: BuildStatus,
+    buildStatus: BuildStatusItem,
 }
   
 
 export const BuildStatusCard: FunctionComponent<BuildStatusCardProps> = ({ buildStatus }) =>  {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <Card elevation={3} className={classes.root}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-            Commit: <a href={"https://github.com/" + buildStatus.buildNumber}>{buildStatus.buildNumber}</a> 
+            Commit: <a href={"https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/commit/" + buildStatus.commitSHA}>{buildStatus.commitSHA}</a> 
         </Typography>
         <Typography variant="h6" component="h5">
           {
@@ -45,10 +44,10 @@ export const BuildStatusCard: FunctionComponent<BuildStatusCardProps> = ({ build
           }
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          Took 394 seconds
+          Took {buildStatus.duration}
         </Typography>
-        <Typography variant="body2" component="p">
-          TODO: Add more info here if needed
+        <Typography variant="h6" component="h6">
+          Test Passed: <b style={{color: "#00aa00"}}>{buildStatus.numberOfTestsPassed}</b> --- Test Failed: <b style={{color: "#ff0000"}}>{buildStatus.numberOfTestsFailed}</b>
         </Typography>
       </CardContent>
     </Card>
