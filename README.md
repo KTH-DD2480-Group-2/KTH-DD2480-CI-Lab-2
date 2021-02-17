@@ -34,4 +34,52 @@ Before you start the sever, you need to add an system variable with a personal a
 #### Branch name
 * `issue/x-<description-of-branch>`
 
+## Statement of contributions
+The main procedure for developing the continuous integration (CI) server was to use group meetings to discuss what
+parts the server should consist of and in what order they could be implemented. The team member that implemented a 
+part that could be tested was also responsible for creating tests for it.
 
+More over, every merge into main needs to have an approved review. A set of rules was set in the repository to prevent pushes directly into main and merges when no approved review existed. Squash and merge was used for every pull-request to prevent unnecessary commits in the main branch. As a result, commits such as "Fixed typo" or "Added comment" is not visible and will minimize showing irrelevant changes in the main branch. The information is however not lost, as it is still visible under the given pull-request.
+### Contributions of each member
+* **Adam Jonsson**: Added frontend for the CI server [PR](PR-SKELETONFRONTE). Fixed bug regarding commit status [PR](PR-SYSVARTOKEN).  Added the skelton to for the ContinuousIntegrationServer.java [PR](PR-CISKELETON). Created repository as an origination and added rules for the repository.
+* **Hovig Manjikian**: Added tests to for the ContinuousIntegrationServer.java [PR](PR-CISKELETON). Added the functionality of parsing the webhook and fetching the relevant revision from GitHub [PR](PR-FETCHDATA). Reviewed [PR](PR-SKELETONFRONTE), [PR](PR-SYSVARTOKEN), [PR](PR-PARSHIST). Configured Ngrok and depoyed the server. 
+* **Isak Vilhelmsson**: Added functionality for CI to extract and run a repo zip ([PR][PR-EXTRACTANDRUN]). Did setup for the 'contributions' part of the README ([PR][PR-CONTR]). Reviewed ([PR][PR-JAVADOC]), ([PR][PR-URLHANDLER]), ([PR][PR-INFOCARDS]), ([PR][PR-FETCHDATA]), ([PR][PR-CISKELETON]).
+* **Lara Rostami**: Implemented functionality for collecting the history of all builds in .json-format and sending it to the frontend ([PR][PR-HISTORY]).
+* **Tony Le**: Implemented functionality for the CI to retrieve and change commit status ([PR][PR-SETCOMMITSTAT]), and ensured that all classes and methods had proper comments and descriptions for Javadoc generation ([PR][PR-JAVADOC]).
+
+### P - Features & Grading
+This section exist to make it more easier for the TA to grade this assignment.  
+* P0 - See this README file and this repository.
+* P1 - The CI server extract the project from the pushed commit and runs `mvn clean install` which builds the project. The CI server scan the output of the command and notifies GITHUB if the build was success full or not. 
+* P2 - The CI server the same command `mvn clean install` which also tests the project. Here as well, the CI server scan the output of the command and notifies GITHUB if the build was success full or not.
+* P3 - We used GitHubs REST-API to notify when the server began the building and testing. It also notifies when  the server was done by either returning "success" or "failure". The history of the notification of our CI server can be seen in the latest commits in the main and assessment branch.
+* P4 - We have used a prefix conversion for all commits and have linked issues and pull-request to them all: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/commits/main.
+* P5 - We created a JavaDoc and published it on github.io which can be accessed here: https://kth-dd2480-ci-lab-2-java-doc.web.app/package-summary.html
+
+* **(P+)** P6 - We are storing the build history, even if the server is rebooted. The build history can be accessed here:
+  * (All builds) http://ba7b413bd96c.ngrok.io/dashboard/
+  * (Build Failed) http://ba7b413bd96c.ngrok.io/dashboard?commitSHA=fe0c606fd6d49d94c29e95fc70466b1035d524ee
+  * (Build Succeeded) http://ba7b413bd96c.ngrok.io/dashboard?commitSHA=6aed4581a17e6664174c12c16175a36cefbabb14
+
+* **(P+)** P7 - We have built an frontend for the build history that we are proud of:
+  * http://ba7b413bd96c.ngrok.io/dashboard/
+
+* **(P+)** P8 - All commits have (expect the first one) has an issue and a PR linked to it.
+  * See main branch here: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/commits/main
+
+[PR-CONTR]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/29
+[PR-JAVADOC]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/27
+[PR-URLHANDLER]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/26
+[PR-INFOCARDS]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/25
+[PR-PARSHIST]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/21
+[PR-BUILDSTOJSON]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/19
+[PR-SYSVARTOKEN]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/18
+[PR-SETCOMMITSTAT]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/16
+[PR-EXTRACTANDRUN]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/15
+[PR-SKELETONFRONTE]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/14
+[PR-FETCHDATA]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/9
+[PR-CISKELETON]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/6
+[PR-LINKTRAVIS]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/4
+[PR-NAMINGCONV]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/3
+[PR-HISTORY]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/11
+[PR-URLHANDLER]: https://github.com/KTH-DD2480-Group-2/KTH-DD2480-CI-Lab-2/pull/26
